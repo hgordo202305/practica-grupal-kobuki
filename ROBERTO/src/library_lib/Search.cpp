@@ -10,11 +10,12 @@ Search::Search(
 {
 
 
-  rclcpp::Node::SharedPtr node;
-  config().blackboard->get("node", node);
-
-   button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
-    "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
+    rclcpp::Node::SharedPtr node;
+    config().blackboard->get("node", node);
+    node->get_parameter("waypoints", waypoints_)
+    node->get_parameter("arr", arr_)
+    button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
+     "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
 }
 
 void
@@ -47,7 +48,15 @@ Search::on_tick()
             break;
           case 3:
             timer_ = NULL;
-            //hacer waypoint aqui
+            std::string result = arr[idx_];
+            auto wp_param = waypoints.find(result);
+            wp_.header.frame_id = "map";
+            wp_.pose.orientation.w = wp_param.orientation.w;
+            
+            wp_.pose.position.x = wp_param.position.x;
+            wp_.pose.position.y = wp_param.position.y;
+            setOutput("waypoint", wp_);
+            idx_ = 0;
             return BT::NodeStatus::SUCCESS;
       }
   return BT::NodeStatus::FAILURE;
