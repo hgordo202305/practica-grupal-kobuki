@@ -7,7 +7,7 @@
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "geometry_msgs/msg/pose_stamped.hpp"
-
+#include "kobuki_ros_interfaces/msg/button_event.hpp"
 namespace library_lib
 {
 
@@ -31,12 +31,14 @@ public:
 
 private:
   void print_interface();
+  void button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg);
+
   geometry_msgs::msg::PoseStamped wp_;
   int idx_;
   rclcpp::Subscription<kobuki_ros_interfaces::msg::ButtonEvent>::SharedPtr button_sub_;
-  std::map<std::string,std::map<std::string,double> waypoints_;
+  std::map<std::string,std::map<std::string,double>> waypoints_;
   int size_;
-  std::string arr_;
+  std::vector<std::string> arr_;
 };
 
 }
