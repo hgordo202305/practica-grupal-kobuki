@@ -51,10 +51,11 @@ Search::on_tick()
             std::string result = arr[idx_];
             auto wp_param = waypoints.find(result);
             wp_.header.frame_id = "map";
-            wp_.pose.orientation.w = wp_param.orientation.w;
-            
-            wp_.pose.position.x = wp_param.position.x;
-            wp_.pose.position.y = wp_param.position.y;
+              
+            wp_.pose.orientation = wp_param->second.pose.orientation;
+            wp_.pose.position.x = wp_param->second.pose.position.x;
+            wp_.pose.position.y = wp_param->second.pose.position.y;
+
             setOutput("waypoint", wp_);
             idx_ = 0;
             return BT::NodeStatus::SUCCESS;
