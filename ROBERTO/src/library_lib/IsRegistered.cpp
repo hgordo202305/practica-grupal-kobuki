@@ -21,7 +21,7 @@ IsRegistered::IsRegistered(
   const std::string & xml_tag_name,
   const std::string & action_name,
   const BT::NodeConfiguration & conf)
-: bt_nav::BtActionNode<nav2_msgs::action::NavigateToPose>(xml_tag_name, action_name, conf)
+: library_lib::BtActionNode<nav2_msgs::action::NavigateToPose>(xml_tag_name, action_name, conf)
 {
 }
 
@@ -50,10 +50,10 @@ BT_REGISTER_NODES(factory)
   BT::NodeBuilder builder =
     [](const std::string & name, const BT::NodeConfiguration & config)
     {
-      return std::make_unique<bt_nav::IsRegistered>(
+      return std::make_unique<library_lib::IsRegistered>(
         name, "navigate_to_pose", config);
     };
 
-  factory.registerBuilder<bt_nav::IsRegistered>(
+  factory.registerBuilder<library_lib::IsRegistered>(
     "IsRegistered", builder);
 }
