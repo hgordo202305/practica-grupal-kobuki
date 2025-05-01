@@ -1,5 +1,5 @@
-#ifndef BT_NAV__GETWAYPOINT_HPP_
-#define BT_NAV__GETWAYPOINT_HPP_
+#ifndef LIBRARY_LIB__SEARCH_HPP_
+#define LIBRARY_LIB__SEARCH_HPP_
 
 #include <string>
 
@@ -14,7 +14,7 @@ namespace library_lib
 class Search : public BT::ActionNodeBase
 {
 public:
-  explicit GetWaypoint(
+  explicit Search(
     const std::string & xml_tag_name,
     const BT::NodeConfiguration & conf);
 
@@ -30,6 +30,7 @@ public:
   }
 
 private:
+  void print_interface();
   geometry_msgs::msg::PoseStamped wp_;
   int idx_;
   rclcpp::Subscription<kobuki_ros_interfaces::msg::ButtonEvent>::SharedPtr button_sub_;
@@ -40,4 +41,4 @@ private:
 
 }
 
-#endif  // BT_NAV__GETWAYPOINT_HPP_
+#endif
