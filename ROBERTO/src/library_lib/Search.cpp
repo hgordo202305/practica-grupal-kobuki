@@ -62,7 +62,7 @@ Search::on_tick()
                 idx_--;
               }
             break;
-          case 3:
+          case 2:
             last_button_ = NULL;
             std::string result = arr[idx_];
             auto wp_param = waypoints.find(result);
