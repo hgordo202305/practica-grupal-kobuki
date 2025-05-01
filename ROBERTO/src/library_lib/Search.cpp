@@ -63,7 +63,7 @@ Search::on_tick()
               }
             break;
           case 3:
-            timer_ = NULL;
+            last_button_ = NULL;
             std::string result = arr[idx_];
             auto wp_param = waypoints.find(result);
             wp_.header.frame_id = "map";
