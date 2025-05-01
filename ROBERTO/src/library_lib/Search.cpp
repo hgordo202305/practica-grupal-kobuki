@@ -51,15 +51,8 @@ Search::on_tick()
 
 }
 
+#include "behaviortree_cpp_v3/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
-  BT::NodeBuilder builder =
-    [](const std::string & name, const BT::NodeConfiguration & config)
-    {
-      return std::make_unique<library_lib::Search>(
-        name, "search_wp", config);
-    };
-
-  factory.registerBuilder<library_lib::Search>(
-    "Search", builder);
+  factory.registerNodeType<bt_nav::Search>("Search");
 }
