@@ -1,4 +1,14 @@
+#include <string>
+#include <iostream>
+#include <vector>
+
 #include "library_lib/Search.hpp"
+
+#include "behaviortree_cpp_v3/behavior_tree.h"
+
+#include "geometry_msgs/msg/pose_stamped.hpp"
+
+#include "rclcpp/rclcpp.hpp"
 
 namespace library_lib
 {
@@ -12,8 +22,14 @@ Search::Search(
 
     rclcpp::Node::SharedPtr node;
     config().blackboard->get("node", node);
-    node->get_parameter("waypoints", waypoints_)
-    node->get_parameter("arr", arr_)
+
+    node->declare_parameter("waypoints",waypoints_);
+    node->declare_parameter("arr",arr_);
+    node->declare_parameter("size",size_);
+    
+    node->get_parameter("waypoints", waypoints_);
+    node->get_parameter("arr", arr_);
+    node->get_parameter("size", size_);
     button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
      "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
 }
@@ -51,10 +67,9 @@ Search::on_tick()
             std::string result = arr[idx_];
             auto wp_param = waypoints.find(result);
             wp_.header.frame_id = "map";
-              
-            wp_.pose.orientation = wp_param->second.pose.orientation.w;
-            wp_.pose.position.x = wp_param->second.pose.position.x;
-            wp_.pose.position.y = wp_param->second.pose.position.y;
+            wp_.pose.orientation = wp_param->second.at("orientation_w");
+            wp_.pose.position.x = wp_param->second.at("position_x");
+            wp_.pose.position.y = wp_param->second.at("position_y");
 
             setOutput("waypoint", wp_);
             idx_ = 0;
