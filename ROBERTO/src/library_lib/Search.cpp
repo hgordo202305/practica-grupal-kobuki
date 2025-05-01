@@ -88,8 +88,7 @@ Search::on_tick()
             break;
           case 2:
             last_button_ = NULL;
-            std::string result = arr[idx_];
-            auto wp_param = waypoints.find(result);
+            auto wp_param = waypoints.find(arr[idx_]);
             wp_.header.frame_id = "map";
             wp_.pose.orientation = wp_param->second.at("orientation_w");
             wp_.pose.position.x = wp_param->second.at("position_x");
