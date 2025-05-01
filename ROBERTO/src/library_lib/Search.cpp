@@ -4,9 +4,10 @@ namespace library_lib
 {
 
 Search::Search(
-  const std::string & xml_tag_name,
-  const std::string & action_name,
-  const BT::NodeConfiguration & conf) : BT::ActionNodeBase(xml_tag_name, conf){
+    const std::string & xml_tag_name,
+    const BT::NodeConfiguration & conf)
+    : BT::ActionNodeBase(xml_tag_name, conf)
+{
 
 
   rclcpp::Node::SharedPtr node;
@@ -37,11 +38,13 @@ Search::on_tick()
             {
               idx_++;
             }
+            break;
           case 1:
             if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i > 0)
               {
                 idx_--;
               }
+            break;
           case 3:
             timer_ = NULL;
             //hacer waypoint aqui
