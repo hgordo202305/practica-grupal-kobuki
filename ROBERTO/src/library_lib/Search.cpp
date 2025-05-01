@@ -52,7 +52,7 @@ Search::on_tick()
             auto wp_param = waypoints.find(result);
             wp_.header.frame_id = "map";
               
-            wp_.pose.orientation = wp_param->second.pose.orientation;
+            wp_.pose.orientation = wp_param->second.pose.orientation.w;
             wp_.pose.position.x = wp_param->second.pose.position.x;
             wp_.pose.position.y = wp_param->second.pose.position.y;
 
