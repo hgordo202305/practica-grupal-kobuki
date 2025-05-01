@@ -51,13 +51,13 @@ Search::on_tick()
    switch(last_button_->button)
         {
           case 0:
-            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i < size_)
+            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && idx_ < size_)
             {
               idx_++;
             }
             break;
           case 1:
-            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i > 0)
+            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && idx_ > 0)
               {
                 idx_--;
               }
