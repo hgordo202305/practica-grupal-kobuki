@@ -64,7 +64,7 @@ Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
   last_button_ = std::move(msg);
 }
 
-void
+BT::NodeStatus
 Search::on_tick()
 {
   Search::print_interface()
