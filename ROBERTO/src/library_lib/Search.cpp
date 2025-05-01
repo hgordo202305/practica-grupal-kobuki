@@ -6,14 +6,14 @@ namespace library_lib
 Search::Search(
   const std::string & xml_tag_name,
   const std::string & action_name,
-  const BT::NodeConfiguration & conf){
+  const BT::NodeConfiguration & conf) : BT::ActionNodeBase(xml_tag_name, conf){
 
 
   rclcpp::Node::SharedPtr node;
   config().blackboard->get("node", node);
 
-   bumper_sub_ = create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
-    "/events/button", 10, std::bind(&Search::timer_callback,node, _1));
+   button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
+    "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
 }
 
 void
@@ -26,34 +26,29 @@ void
 Search::on_tick()
 {
 
-  timer_ = create_wall_timer(50ms, std::bind(&Search::timer_callback, this));
-  wp_.header.frame_id = "map";
-  wp_.pose.orientation.w = 1.0;
-
-  wp_.pose.position.x = 3.67;
-  wp_.pose.position.y = -0.24;
-}
-
-void
-Search::timer_callback(){
-  
-}
-    switch(last_button_->button)
-      {
-        case 0:
-          if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i < size)
-          {
-            i++;
-          }
-        case 1:
-          if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i > 0)
+  if(last_button_ == NULL)
+  {
+      return BT::NodeStatus::FAILURE;
+  }
+   switch(last_button_->button)
+        {
+          case 0:
+            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i < size_)
             {
-              i--;
+              idx_++;
             }
-        case 3:
-          timer_ = NULL;
-          result_ = BT::NodeStatus::SUCCESS;
+          case 1:
+            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && i > 0)
+              {
+                idx_--;
+              }
+          case 3:
+            timer_ = NULL;
+            //hacer waypoint aqui
+            return BT::NodeStatus::SUCCESS;
       }
+  return BT::NodeStatus::FAILURE;
+
 }
 
 BT_REGISTER_NODES(factory)
@@ -62,7 +57,7 @@ BT_REGISTER_NODES(factory)
     [](const std::string & name, const BT::NodeConfiguration & config)
     {
       return std::make_unique<library_lib::Search>(
-        name, "navigate_to_pose", config);
+        name, "search_wp", config);
     };
 
   factory.registerBuilder<library_lib::Search>(
