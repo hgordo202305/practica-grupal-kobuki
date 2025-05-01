@@ -33,6 +33,29 @@ Search::Search(
     button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
      "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
 }
+void Search::print_interface()
+{
+    system("clear");
+
+    std::cout << "========= MENU DE DESTINOS =========" << std::endl;
+    for (size_t i = 0; i < arr_.size(); ++i)
+    {
+        if (i == idx_)
+        {
+            std::cout << " -> [" << arr_[i] << "]" << std::endl;
+        }
+        else
+        {
+            std::cout << "    " << arr_[i] << std::endl;
+        }
+    }
+    std::cout << "====================================" << std::endl;
+    std::cout << "Botón 0: Siguiente destino" << std::endl;
+    std::cout << "Botón 1: Destino anterior" << std::endl;
+    std::cout << "Botón 3: Confirmar selección" << std::endl;
+    std::cout << "====================================" << std::endl;
+    std::cout << "Seleccionado: " << arr_[idx_] << std::endl;
+}
 
 void
 Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
