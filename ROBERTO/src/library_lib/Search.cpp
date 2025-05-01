@@ -32,6 +32,7 @@ Search::Search(
     node->get_parameter("size", size_);
     button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
      "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
+    idx_ = 0;
 }
 void Search::print_interface()
 {
@@ -66,7 +67,7 @@ Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
 void
 Search::on_tick()
 {
-
+  Search::print_interface()
   if(last_button_ == NULL)
   {
       return BT::NodeStatus::FAILURE;
