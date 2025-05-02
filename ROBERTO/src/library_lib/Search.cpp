@@ -67,7 +67,7 @@ Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
 BT::NodeStatus
 Search::on_tick()
 {
-  Search::print_interface()
+  Search::print_interface();
   if(last_button_ == NULL)
   {
       return BT::NodeStatus::FAILURE;
@@ -105,5 +105,5 @@ Search::on_tick()
 #include "behaviortree_cpp_v3/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
-  factory.registerNodeType<bt_nav::Search>("Search");
+  factory.registerNodeType<library_lib::Search>("Search");
 }
