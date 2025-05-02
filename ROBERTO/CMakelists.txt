@@ -28,8 +28,8 @@ set(dependencies
 
 include_directories(include ${ZMQ_INCLUDE_DIRS})
 
-add_library(move_bt_node SHARED src/library_lib/IsRegistered.cpp)
-add_library(getwp_bt_node SHARED src/library_lib/Search.cpp)
+add_library(guide_node SHARED src/library_lib/IsRegistered.cpp)
+add_library(search_node SHARED src/library_lib/Search.cpp)
 
 list(APPEND plugin_libs
   move_bt_node
@@ -41,7 +41,7 @@ foreach(bt_plugin ${plugin_libs})
   target_compile_definitions(${bt_plugin} PRIVATE BT_PLUGIN_EXPORT)
 endforeach()
 
-add_executable(guide_nav src/guide_nav_main.cpp)
+add_executable(guide_nav_main src/guide_nav_main.cpp)
 ament_target_dependencies(navigate ${dependencies})
 
 
