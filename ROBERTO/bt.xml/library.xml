@@ -3,9 +3,9 @@
     <!-- ////////// -->
     <BehaviorTree ID="BehaviorTree">
         <Fallback>
-            <Action ID="Search"/>
+            <Action ID="Search" waypoint="{wp}"/>
             <Sequence>
-                <Action ID="NavObjective"/>
+                <Action ID="NavObjective" goal="{wp}"/>
                 <ReactiveFallback>
                     <Action ID="StoreObject"/>
                 </ReactiveFallback>
