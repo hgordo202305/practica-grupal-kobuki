@@ -32,8 +32,8 @@ add_library(guide_node SHARED src/library_lib/IsRegistered.cpp)
 add_library(search_node SHARED src/library_lib/Search.cpp)
 
 list(APPEND plugin_libs
-  move_bt_node
-  getwp_bt_node
+  guide_node
+  search_node
 )
 
 foreach(bt_plugin ${plugin_libs})
@@ -47,7 +47,7 @@ ament_target_dependencies(navigate ${dependencies})
 
 install(TARGETS
   ${plugin_libs}
-  guide_nav
+  guide_nav_main
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
@@ -58,7 +58,7 @@ install(DIRECTORY include/
 )
 
 install(DIRECTORY
-  bt_xml
+  bt.xml
   DESTINATION share/${PROJECT_NAME}
 )
 
