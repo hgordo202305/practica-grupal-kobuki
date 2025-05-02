@@ -20,14 +20,14 @@ public:
     const std::string & xml_tag_name,
     const BT::NodeConfiguration & conf);
 
-  void halt();
-  BT::NodeStatus tick();
+  BT::NodeStatus on_success() override;
+  void on_tick() override;
 
   static BT::PortsList providedPorts()
   {
     return BT::PortsList(
       {
-        BT::InputPort<geometry_msgs::msg::PoseStamped>("waypoint")});
+        BT::InputPort<geometry_msgs::msg::PoseStamped>("goal")});
   }
 
 private:
