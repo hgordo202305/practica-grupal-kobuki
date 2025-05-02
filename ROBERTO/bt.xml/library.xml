@@ -2,9 +2,8 @@
 <root main_tree_to_execute="BehaviorTree">
     <!-- ////////// -->
     <BehaviorTree ID="BehaviorTree">
-        <ReactiveSequence>
-            <Action ID="SearchQR"/>
-            <Action ID="IsRegistered"/>
+        <Fallback>
+            <Action ID="Search"/>
             <Sequence>
                 <Action ID="NavObjective"/>
                 <ReactiveFallback>
@@ -12,14 +11,16 @@
                 </ReactiveFallback>
                 <Action ID="NavOdom"/>
             </Sequence>
-        </ReactiveSequence>
+            <Action ID="NavOdom"/>
+        </Fallback>
     </BehaviorTree>
     <!-- ////////// -->
     <TreeNodesModel>
-        <Action ID="IsRegistered"/>
         <Action ID="NavObjective"/>
+            <input_port name="waypoint"/>
         <Action ID="NavOdom"/>
-        <Action ID="SearchQR"/>
+        <Action ID="Search"/>
+            <output_port name="goal"/>
         <Action ID="StoreObject"/>
     </TreeNodesModel>
     <!-- ////////// -->
