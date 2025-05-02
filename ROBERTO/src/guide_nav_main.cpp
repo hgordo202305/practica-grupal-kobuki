@@ -28,16 +28,16 @@ int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 
-  auto node = rclcpp::Node::make_shared("patrolling_node");
+  auto node = rclcpp::Node::make_shared("node");
 
   BT::BehaviorTreeFactory factory;
   BT::SharedLibrary loader;
 
-  factory.registerFromPlugin(loader.getOSName("move_bt_node"));
-  factory.registerFromPlugin(loader.getOSName("getwp_bt_node"));
+  factory.registerFromPlugin(loader.getOSName("search_node"));
+  factory.registerFromPlugin(loader.getOSName("guide_node"));
 
-  std::string pkgpath = ament_index_cpp::get_package_share_directory("bt_nav");
-  std::string xml_file = pkgpath + "/behavior_tree_xml/navigate.xml";
+  std::string pkgpath = ament_index_cpp::get_package_share_directory("library_lib");
+  std::string xml_file = pkgpath + "/bt.xml/library.xml";
 
   auto blackboard = BT::Blackboard::create();
   blackboard->set("node", node);
