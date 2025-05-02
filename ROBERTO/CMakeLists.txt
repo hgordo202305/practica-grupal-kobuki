@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 3.5)
-project(practica-global-kobuki)
+project(guide_kobuki)
 
 set(CMAKE_CONFIG_PATH ${CMAKE_MODULE_PATH}  "${CMAKE_CURRENT_LIST_DIR}/cmake")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CONFIG_PATH}")
@@ -42,7 +42,7 @@ foreach(bt_plugin ${plugin_libs})
 endforeach()
 
 add_executable(guide_nav_main src/guide_nav_main.cpp)
-ament_target_dependencies(navigate ${dependencies})
+ament_target_dependencies(guide_nav_main ${dependencies})
 
 
 install(TARGETS
