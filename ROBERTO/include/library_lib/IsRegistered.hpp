@@ -2,11 +2,16 @@
 #define LIBRARY_LIB__ISREGISTERED_HPP_
 
 #include <string>
-
-#include "behaviortree_cpp_v3/behavior_tree.h"
-#include "behaviortree_cpp_v3/bt_factory.h"
+#include <iostream>
+#include <vector>
+#include <memory>
 
 #include "geometry_msgs/msg/pose_stamped.hpp"
+#include "nav2_msgs/action/navigate_to_pose.hpp"
+
+#include "bt_nav/ctrl_support/BTActionNode.hpp"
+#include "behaviortree_cpp_v3/behavior_tree.h"
+#include "behaviortree_cpp_v3/bt_factory.h"
 
 namespace library_lib
 {
