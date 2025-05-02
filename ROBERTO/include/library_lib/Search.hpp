@@ -2,12 +2,16 @@
 #define LIBRARY_LIB__SEARCH_HPP_
 
 #include <string>
+#include <iostream>
+#include <vector>
+
+#include "library_lib/Search.hpp"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
-#include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "kobuki_ros_interfaces/msg/button_event.hpp"
+#include "rclcpp/rclcpp.hpp"
 namespace library_lib
 {
 
@@ -36,9 +40,15 @@ private:
   geometry_msgs::msg::PoseStamped wp_;
   int idx_;
   rclcpp::Subscription<kobuki_ros_interfaces::msg::ButtonEvent>::SharedPtr button_sub_;
-  std::map<std::string,std::map<std::string,double>> waypoints_;
   int size_;
   std::vector<std::string> arr_;
+  std::string ciencia_;
+  std::string literatura_;
+  std::string infantil_;
+  std::string historia_;
+  rclcpp::Node::SharedPtr node_;
+
+  kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr last_button_;
 };
 
 }

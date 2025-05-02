@@ -9,7 +9,7 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "nav2_msgs/action/navigate_to_pose.hpp"
 
-#include "bt_nav/ctrl_support/BTActionNode.hpp"
+#include "library_lib/ctrl_support/BTActionNode.hpp"
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
@@ -23,6 +23,7 @@ class IsRegistered : public library_lib::BtActionNode<nav2_msgs::action::Navigat
 public:
   explicit IsRegistered(
     const std::string & xml_tag_name,
+    const std::string & action_name,
     const BT::NodeConfiguration & conf);
 
   BT::NodeStatus on_success() override;

@@ -21,17 +21,20 @@ Search::Search(
 
 
     rclcpp::Node::SharedPtr node;
+    node_ = node;
     config().blackboard->get("node", node);
 
-    node->declare_parameter("waypoints",waypoints_);
+    node->declare_parameter("ciencia",ciencia_);
+    node->declare_parameter("historia",historia_);
+    node->declare_parameter("literatura",literatura_);
+    node->declare_parameter("infantil",infantil_);
     node->declare_parameter("arr",arr_);
     node->declare_parameter("size",size_);
     
-    node->get_parameter("waypoints", waypoints_);
     node->get_parameter("arr", arr_);
     node->get_parameter("size", size_);
     button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
-     "/events/button", 10, std::bind(&Search::timer_callback,this, _1));
+     "/events/button", 10, std::bind(&Search::button_callback,this, std::placeholders::_1));
     idx_ = 0;
 }
 void Search::print_interface()
@@ -65,7 +68,7 @@ Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
 }
 
 BT::NodeStatus
-Search::on_tick()
+Search::tick()
 {
   Search::print_interface();
   if(last_button_ == NULL)
@@ -88,11 +91,20 @@ Search::on_tick()
             break;
           case 2:
             last_button_ = NULL;
-            auto wp_param = waypoints.find(arr[idx_]);
+            std::string name = arr_[idx_];
+            double x, y, w;
+            node_->declare_parameter(name + ".x", 0.0);
+            node_->declare_parameter(name + ".y", 0.0);
+            node_->declare_parameter(name + ".w", 1.0);
+          
+            node_->get_parameter(name + ".x", x);
+            node_->get_parameter(name + ".y", y);
+            node_->get_parameter(name + ".w", w);
+
             wp_.header.frame_id = "map";
-            wp_.pose.orientation = wp_param->second.at("orientation_w");
-            wp_.pose.position.x = wp_param->second.at("position_x");
-            wp_.pose.position.y = wp_param->second.at("position_y");
+            wp_.pose.orientation.w = w;
+            wp_.pose.position.x = x;
+            wp_.pose.position.y = y;
 
             setOutput("waypoint", wp_);
             idx_ = 0;

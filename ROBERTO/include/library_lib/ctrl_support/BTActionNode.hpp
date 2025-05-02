@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef BT_NAV__CTRL_SUPPORT__BTACTIONNODE_HPP_
-#define BT_NAV__CTRL_SUPPORT__BTACTIONNODE_HPP_
+#ifndef LIBRARY_LIB__CTRL_SUPPORT__BTACTIONNODE_HPP_
+#define LIBRARY_LIB__SUPPORT__BTACTIONNODE_HPP_
 
 #include <memory>
 #include <string>
@@ -22,7 +22,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
 
-namespace bt_nav
+namespace library_lib
 {
 
 using namespace std::chrono_literals;  // NOLINT
