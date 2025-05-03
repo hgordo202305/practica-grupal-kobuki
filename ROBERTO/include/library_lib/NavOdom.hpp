@@ -1,5 +1,5 @@
-#ifndef LIBRARY_LIB__ISREGISTERED_HPP_
-#define LIBRARY_LIB__ISREGISTERED_HPP_
+#ifndef LIBRARY_LIB__NAVODOM_HPP_
+#define LIBRARY_LIB__NAVODOM_HPP_
 
 #include <string>
 #include <iostream>
@@ -18,10 +18,10 @@ namespace library_lib
 
 using namespace std::chrono_literals;
 
-class IsRegistered : public library_lib::BtActionNode<nav2_msgs::action::NavigateToPose>
+class NavOdom : public library_lib::BtActionNode<nav2_msgs::action::NavigateToPose>
 {
 public:
-  explicit IsRegistered(
+  explicit NavOdom(
     const std::string & xml_tag_name,
     const std::string & action_name,
     const BT::NodeConfiguration & conf);
