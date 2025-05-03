@@ -118,5 +118,5 @@ Search::tick()
 #include "behaviortree_cpp_v3/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
-  factory.registerNodeType<library_lib::Search>("Search");
+  factory.registerNodeType<library_lib::Search>("search_node");
 }
