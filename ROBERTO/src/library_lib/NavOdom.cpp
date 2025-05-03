@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "library_lib/IsRegistered.hpp"
+#include "library_lib/NavOdom.hpp"
 
 namespace library_lib
 {
 
-IsRegistered::IsRegistered(
+NavOdom::NavOdom(
   const std::string & xml_tag_name,
   const std::string & action_name,
   const BT::NodeConfiguration & conf)
@@ -26,7 +26,7 @@ IsRegistered::IsRegistered(
 }
 
 void
-IsRegistered::on_tick()
+NavOdom::on_tick()
 {
   geometry_msgs::msg::PoseStamped goal;
   getInput("goal", goal);
@@ -35,7 +35,7 @@ IsRegistered::on_tick()
 }
 
 BT::NodeStatus
-IsRegistered::on_success()
+NavOdom::on_success()
 {
   RCLCPP_INFO(node_->get_logger(), "** NAVIGATION SUCCEEDED **");
 
@@ -50,10 +50,10 @@ BT_REGISTER_NODES(factory)
   BT::NodeBuilder builder =
     [](const std::string & name, const BT::NodeConfiguration & config)
     {
-      return std::make_unique<library_lib::IsRegistered>(
-        name, "navigate_to_pose", config);
+      return std::make_unique<library_lib::NavOdom>(
+        name, "navigate_to_odom", config);
     };
 
-  factory.registerBuilder<library_lib::IsRegistered>(
-    "IsRegistered", builder);
+  factory.registerBuilder<library_lib::NavOdom>(
+    "NavOdom", builder);
 }
