@@ -34,7 +34,8 @@ int main(int argc, char * argv[])
   BT::SharedLibrary loader;
 
   factory.registerFromPlugin(loader.getOSName("search_node"));
-  factory.registerFromPlugin(loader.getOSName("guide_node"));
+  factory.registerFromPlugin(loader.getOSName("navigate_to_objective"));
+  factory.registerFromPlugin(loader.getOSName("navigate_to_odom"));
 
   std::string pkgpath = ament_index_cpp::get_package_share_directory("library_lib");
   std::string xml_file = pkgpath + "/bt.xml/library.xml";
