@@ -18,6 +18,7 @@
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 #include "behaviortree_cpp_v3/utils/shared_library.h"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 
 #include "ament_index_cpp/get_package_share_directory.hpp"
 
@@ -42,6 +43,13 @@ int main(int argc, char * argv[])
 
   auto blackboard = BT::Blackboard::create();
   blackboard->set("node", node);
+
+  geometry_msgs::msg::PoseStamped odom;
+  odom.pose.orientation.w = 1.0;
+  odom.pose.position.x = 0.0;
+  odom.pose.position.y = 0.0;
+  blackboard->set("odom", odom);
+
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);
 
   rclcpp::Rate rate(10);

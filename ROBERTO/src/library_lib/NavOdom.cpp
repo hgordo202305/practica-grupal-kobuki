@@ -28,12 +28,11 @@ NavOdom::NavOdom(
 void
 NavOdom::on_tick()
 {
-  geometry_msgs::msg::PoseStamped goal;
-  getInput("goal", goal);
+  geometry_msgs::msg::PoseStamped odom;
+  getInput("odom", odom);
 
-  goal_.pose.x = 0;
-  goal_.pose.y = 0;
-  goal_.orientation.w = 1;
+  goal_.pose = odom;
+
 }
 
 BT::NodeStatus

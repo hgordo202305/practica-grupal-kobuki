@@ -2,24 +2,26 @@
 <root main_tree_to_execute="BehaviorTree">
     <!-- ////////// -->
     <BehaviorTree ID="BehaviorTree">
-        <Fallback>
-            <Action ID="Search"/>
-            <Sequence>
-                <Action ID="NavObjective"/>
-                <ReactiveFallback>
+        <Sequence>
+            <Action ID="Search" waypoint="{wp}"/>
+            <Fallback>
+                <Sequence>
+                    <Action ID="NavObjective" goal="{wp}"/>
                     <Action ID="StoreObject"/>
-                </ReactiveFallback>
+                    <Action ID="NavOdom"/>
+                </Sequence>
                 <Action ID="NavOdom"/>
-            </Sequence>
-            <Action ID="NavOdom"/>
-        </Fallback>
+            </Fallback>
+        </Sequence>
     </BehaviorTree>
     <!-- ////////// -->
     <TreeNodesModel>
-        <Action ID="IsRegistered"/>
         <Action ID="NavObjective"/>
+            <input_port name="goal"/>
         <Action ID="NavOdom"/>
+            <input_port name="odom"/>
         <Action ID="Search"/>
+            <output_port name="waypoint"/>
         <Action ID="StoreObject"/>
     </TreeNodesModel>
     <!-- ////////// -->
