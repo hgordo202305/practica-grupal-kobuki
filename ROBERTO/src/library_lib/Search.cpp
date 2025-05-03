@@ -56,7 +56,7 @@ void Search::print_interface()
     std::cout << "====================================" << std::endl;
     std::cout << "Botón 0: Siguiente destino" << std::endl;
     std::cout << "Botón 1: Destino anterior" << std::endl;
-    std::cout << "Botón 3: Confirmar selección" << std::endl;
+    std::cout << "Botón 2: Confirmar selección" << std::endl;
     std::cout << "====================================" << std::endl;
     std::cout << "Seleccionado: " << arr_[idx_] << std::endl;
 }
