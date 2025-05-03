@@ -51,7 +51,7 @@ BT_REGISTER_NODES(factory)
     [](const std::string & name, const BT::NodeConfiguration & config)
     {
       return std::make_unique<library_lib::IsRegistered>(
-        name, "navigate_to_pose", config);
+        name, "navigate_to_objective", config);
     };
 
   factory.registerBuilder<library_lib::IsRegistered>(
