@@ -31,7 +31,9 @@ NavOdom::on_tick()
   geometry_msgs::msg::PoseStamped goal;
   getInput("goal", goal);
 
-  goal_.pose = goal;
+  goal_.pose.x = 0;
+  goal_.pose.y = 0;
+  goal_.orientation.w = 1;
 }
 
 BT::NodeStatus
