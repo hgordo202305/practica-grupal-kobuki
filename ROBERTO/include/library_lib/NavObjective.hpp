@@ -1,5 +1,5 @@
-#ifndef LIBRARY_LIB__NavObjective_HPP_
-#define LIBRARY_LIB__NavObjective_HPP_
+#ifndef LIBRARY_LIB__NAVOBJECTIVE_HPP_
+#define LIBRARY_LIB__NAVOBJECTIVE_HPP_
 
 #include <string>
 #include <iostream>
