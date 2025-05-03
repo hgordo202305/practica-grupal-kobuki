@@ -28,12 +28,14 @@ set(dependencies
 
 include_directories(include ${ZMQ_INCLUDE_DIRS})
 
-add_library(guide_node SHARED src/library_lib/IsRegistered.cpp)
+add_library(navigate_to_objective SHARED src/library_lib/NavObjective.cpp)
 add_library(search_node SHARED src/library_lib/Search.cpp)
+add_library(navigate_to_odom SHARED src/library_lib/NavOdom.cpp)
 
 list(APPEND plugin_libs
-  guide_node
+  navigate_to_objective
   search_node
+  navigate_to_odom
 )
 
 foreach(bt_plugin ${plugin_libs})
