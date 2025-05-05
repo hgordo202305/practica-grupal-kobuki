@@ -37,9 +37,10 @@ int main(int argc, char * argv[])
   factory.registerFromPlugin(loader.getOSName("search_node"));
   factory.registerFromPlugin(loader.getOSName("navigate_to_objective"));
   factory.registerFromPlugin(loader.getOSName("navigate_to_odom"));
+  factory.registerFromPlugin(loader.getOSName("store_object_node"));
 
-  std::string pkgpath = ament_index_cpp::get_package_share_directory("library_lib");
-  std::string xml_file = pkgpath + "/bt.xml/library.xml";
+  std::string pkgpath = ament_index_cpp::get_package_share_directory("guide_kobuki");
+  std::string xml_file = pkgpath + "/bt_xml/library.xml";
 
   auto blackboard = BT::Blackboard::create();
   blackboard->set("node", node);

@@ -66,7 +66,10 @@ Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
 {
   last_button_ = std::move(msg);
 }
-
+void library_lib::Search::halt()
+{
+  // Aquí puedes limpiar o resetear estados si hace falta
+}
 BT::NodeStatus
 Search::tick()
 {
@@ -118,5 +121,5 @@ Search::tick()
 #include "behaviortree_cpp_v3/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
-  factory.registerNodeType<library_lib::Search>("search_node");
+  factory.registerNodeType<library_lib::Search>("Search");
 }
