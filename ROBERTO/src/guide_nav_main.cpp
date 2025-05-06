@@ -29,7 +29,7 @@ int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 
-  auto node = rclcpp::Node::make_shared("node");
+  auto node = rclcpp::Node::make_shared("guide_nav_main");
 
   BT::BehaviorTreeFactory factory;
   BT::SharedLibrary loader;
@@ -46,9 +46,9 @@ int main(int argc, char * argv[])
   blackboard->set("node", node);
 
   geometry_msgs::msg::PoseStamped odom;
-  odom.pose.orientation.w = 1.0;
-  odom.pose.position.x = 0.0;
-  odom.pose.position.y = 0.0;
+  odom.pose.orientation.w = -1.57;
+  odom.pose.position.x = 3.2484867572784424;
+  odom.pose.position.y = -2.5725605487823486;
   blackboard->set("odom", odom);
 
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);

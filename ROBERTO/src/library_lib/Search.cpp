@@ -20,27 +20,40 @@ Search::Search(
 {
 
 
-    rclcpp::Node::SharedPtr node;
-    node_ = node;
-    config().blackboard->get("node", node);
+    config().blackboard->get("node", node_);
 
-    node->declare_parameter("ciencia",ciencia_);
-    node->declare_parameter("historia",historia_);
-    node->declare_parameter("literatura",literatura_);
-    node->declare_parameter("infantil",infantil_);
-    node->declare_parameter("arr",arr_);
-    node->declare_parameter("size",size_);
-    
-    node->get_parameter("arr", arr_);
-    node->get_parameter("size", size_);
-    button_sub_ = node->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
+    node_->declare_parameter("ciencia.x", cienciax_);
+    node_->declare_parameter("ciencia.y", cienciay_);
+    node_->declare_parameter("ciencia.w", cienciaw_);
+
+    node_->declare_parameter("historia.x", historiax_);
+    node_->declare_parameter("historia.y", historiay_);
+    node_->declare_parameter("historia.w", historiaw_);
+
+    node_->declare_parameter("literatura.x", literaturax_);
+    node_->declare_parameter("literatura.y", literaturay_);
+    node_->declare_parameter("literatura.w", literaturaw_);
+
+    node_->declare_parameter("infantil.x", infantilx_);
+    node_->declare_parameter("infantil.y", infantily_);
+    node_->declare_parameter("infantil.w", infantilw_);
+
+    node_->declare_parameter("arr", arr_);
+    node_->declare_parameter("size", size_);
+
+    node_->get_parameter("arr", arr_);
+    node_->get_parameter("size", size_);
+
+    button_sub_ = node_->create_subscription<kobuki_ros_interfaces::msg::ButtonEvent>(
      "/events/button", 10, std::bind(&Search::button_callback,this, std::placeholders::_1));
     idx_ = 0;
+    last_button_ = NULL;
+    Search::print_interface();
+
 }
 void Search::print_interface()
 {
     system("clear");
-
     std::cout << "========= MENU DE DESTINOS =========" << std::endl;
     for (size_t i = 0; i < arr_.size(); ++i)
     {
@@ -64,42 +77,52 @@ void Search::print_interface()
 void
 Search::button_callback(kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr msg)
 {
+  Search::print_interface();
+
   last_button_ = std::move(msg);
 }
 void library_lib::Search::halt()
 {
-  // Aquí puedes limpiar o resetear estados si hace falta
+
 }
 BT::NodeStatus
 Search::tick()
 {
-  Search::print_interface();
   if(last_button_ == NULL)
   {
-      return BT::NodeStatus::FAILURE;
+      return BT::NodeStatus::RUNNING;
   }
    switch(last_button_->button)
         {
           case 0:
-            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && idx_ < size_)
+            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED)
             {
               idx_++;
+              if(idx_ >= size_)
+              {
+                idx_ = 0;
+              }
             }
             break;
           case 1:
-            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED && idx_ > 0)
+            if(last_button_->state == kobuki_ros_interfaces::msg::ButtonEvent::PRESSED)
               {
+                if(idx_ < 1)
+                {
+                  idx_ = size_ - 1;
+                  break;
+                }
                 idx_--;
+
               }
             break;
           case 2:
             last_button_ = NULL;
             std::string name = arr_[idx_];
+            std::cout << name<< std::endl;
+
             double x, y, w;
-            node_->declare_parameter(name + ".x", 0.0);
-            node_->declare_parameter(name + ".y", 0.0);
-            node_->declare_parameter(name + ".w", 1.0);
-          
+
             node_->get_parameter(name + ".x", x);
             node_->get_parameter(name + ".y", y);
             node_->get_parameter(name + ".w", w);
@@ -108,12 +131,12 @@ Search::tick()
             wp_.pose.orientation.w = w;
             wp_.pose.position.x = x;
             wp_.pose.position.y = y;
-
+            
             setOutput("waypoint", wp_);
             idx_ = 0;
             return BT::NodeStatus::SUCCESS;
       }
-  return BT::NodeStatus::FAILURE;
+  return BT::NodeStatus::RUNNING;
 
 }
 }

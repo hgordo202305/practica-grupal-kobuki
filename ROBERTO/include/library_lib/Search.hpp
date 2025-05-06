@@ -42,10 +42,23 @@ private:
   rclcpp::Subscription<kobuki_ros_interfaces::msg::ButtonEvent>::SharedPtr button_sub_;
   int size_;
   std::vector<std::string> arr_;
-  std::string ciencia_;
-  std::string literatura_;
-  std::string infantil_;
-  std::string historia_;
+  double cienciax_;
+  double cienciay_;
+  double cienciaw_;
+
+  double literaturax_;
+  double literaturay_;
+  double literaturaw_;
+
+  double infantilx_;
+  double infantily_;
+  double infantilw_;
+
+  double historiax_;
+  double historiay_;
+  double historiaw_;
+
+
   rclcpp::Node::SharedPtr node_;
 
   kobuki_ros_interfaces::msg::ButtonEvent::UniquePtr last_button_;

@@ -46,9 +46,9 @@ public:
     result_ = typename rclcpp_action::ClientGoalHandle<ActionT>::WrappedResult();
 
     std::string remapped_action_name;
-    if (getInput("server_name", remapped_action_name)) {
-      action_name_ = remapped_action_name;
-    }
+  
+    action_name_ = "navigate_to_pose";
+    
     createActionClient(action_name_);
 
     // Give the derive class a chance to do any initialization
