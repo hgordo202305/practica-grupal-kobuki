@@ -2,7 +2,7 @@
 
 *[QRS ROS2](https://github.com/christianrauch/apriltag_ros?tab=readme-ov-file)*
 
-
+https://github.com/introlab/find-object.git
 *[QR ROS](https://github.com/ros-drivers/zbar_ros)*
 
 **DOCUMENTACION OPEN_CV Y CV_BRIDGE**
